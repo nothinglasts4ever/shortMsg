@@ -33,11 +33,18 @@ public class MessageController {
 
     @PostMapping("/messages/send")
     public Message sendMessage(@RequestBody SendMessageRequest request) {
-        User from = userRepository.findOne(request.getFrom());
-        User to = userRepository.findOne(request.getTo());
+        long senderId = request.getFrom();
+        long recipientId = request.getTo();
+        if (senderId == recipientId) {
+            // throw exception
+        }
+
+        User from = userRepository.findOne(senderId);
+        User to = userRepository.findOne(recipientId);
         if (from == null || to == null) {
             // throw exception
         }
+
         Message message = Message.of()
                 .setMessage(request.getMessage())
                 .setFrom(from)
