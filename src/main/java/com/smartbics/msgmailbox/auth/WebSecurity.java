@@ -19,7 +19,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public static final String SECRET = "ShortMessageMailboxSecretKey";
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
-//    public static final String SIGN_UP_URL = "/users/sign-up";
 
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -32,7 +31,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-//                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers("/index.html", "/login.html", "/", "/login").permitAll()
+                .antMatchers("/favicon.ico", "/*bundle.js").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

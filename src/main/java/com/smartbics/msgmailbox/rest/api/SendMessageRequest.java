@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Data(staticConstructor = "of")
 public class SendMessageRequest {
-    private long from;
-    private long to;
+    private long recipient;
     private String message;
 }

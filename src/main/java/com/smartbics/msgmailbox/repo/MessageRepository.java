@@ -9,4 +9,5 @@ import java.util.List;
 public interface MessageRepository extends CrudRepository<Message, Long> {
     List<Message> findByFromOrderByTimeStampDesc(Person from);
     List<Message> findByToOrderByTimeStampDesc(Person to);
+    Message findByIdAndTo(long id, Person to);
 }

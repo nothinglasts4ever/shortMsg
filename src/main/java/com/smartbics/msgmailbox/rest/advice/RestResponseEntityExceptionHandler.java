@@ -1,4 +1,4 @@
-package com.smartbics.msgmailbox.rest;
+package com.smartbics.msgmailbox.rest.advice;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
