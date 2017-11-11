@@ -1,8 +1,7 @@
 package com.smartbics.msgmailbox.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smartbics.msgmailbox.domain.Person;
-import com.smartbics.msgmailbox.domain.UserCredentials;
+import com.smartbics.msgmailbox.domain.Credentials;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,12 +19,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.smartbics.msgmailbox.auth.WebSecurity.*;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final String SECRET = "SecretKeyToGenJWTs";
-    public static final long EXPIRATION_TIME = 864_000_000; // 10 days
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String HEADER_STRING = "Authorization";
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 10;
 
     private AuthenticationManager authenticationManager;
 
@@ -36,7 +34,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            UserCredentials credentials = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
+            Credentials credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getMobileId(), credentials.getPassword(), new ArrayList<>());
             return authenticationManager.authenticate(token);
         } catch (IOException e) {
@@ -47,11 +45,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         Object principal = authResult.getPrincipal();
-        // verify something
         User user = (User) principal;
-        // verify no principal
         String mobileId = user.getUsername();
-        // verify no mobile id provided
         Date expiration = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
         String token = Jwts.builder()
                 .setSubject(mobileId)

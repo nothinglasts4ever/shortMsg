@@ -23,10 +23,10 @@ public class PersonController {
         return personRepository.findAll();
     }
 
-    @PostMapping("/sign-up")
+   /* @PostMapping("/sign-up")
     public void signUp(@RequestBody Person user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         personRepository.save(user);
-    }
+    }*/
 
 }

@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+import static com.smartbics.msgmailbox.auth.WebSecurity.HEADER_STRING;
+import static com.smartbics.msgmailbox.auth.WebSecurity.SECRET;
+import static com.smartbics.msgmailbox.auth.WebSecurity.TOKEN_PREFIX;
 
-    public static final String SECRET = "SecretKeyToGenJWTs";
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String HEADER_STRING = "Authorization";
-    public static final String SIGN_UP_URL = "/users/sign-up";
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);

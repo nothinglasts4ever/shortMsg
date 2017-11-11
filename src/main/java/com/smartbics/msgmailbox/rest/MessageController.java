@@ -5,18 +5,21 @@ import com.smartbics.msgmailbox.domain.Person;
 import com.smartbics.msgmailbox.repo.MessageRepository;
 import com.smartbics.msgmailbox.repo.PersonRepository;
 import com.smartbics.msgmailbox.rest.api.SendMessageRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 
 @RestController
 public class MessageController {
 
-    @Autowired
     private MessageRepository messageRepository;
-    @Autowired
     private PersonRepository personRepository;
+
+    public MessageController(MessageRepository messageRepository, PersonRepository personRepository) {
+        this.messageRepository = messageRepository;
+        this.personRepository = personRepository;
+    }
 
     @GetMapping("/messages/inbox")
     public Iterable<Message> getInboxMessages(@RequestParam long id) {
@@ -35,13 +38,13 @@ public class MessageController {
         long senderId = request.getFrom();
         long recipientId = request.getTo();
         if (senderId == recipientId) {
-            // throw exception
+            throw new ValidationException("Sender and recipient should be different persons");
         }
 
         Person from = personRepository.findOne(senderId);
         Person to = personRepository.findOne(recipientId);
         if (from == null || to == null) {
-            // throw exception
+            throw new ValidationException("Sender or recipient cannot be found");
         }
 
         Message message = Message.of()

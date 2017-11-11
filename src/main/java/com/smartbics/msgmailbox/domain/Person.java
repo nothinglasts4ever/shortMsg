@@ -1,5 +1,6 @@
 package com.smartbics.msgmailbox.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -20,6 +21,6 @@ public class Person implements Serializable {
     private long id;
     private String firstName;
     private String lastName;
-    private String mobileId;
-    private String password;
+    @JsonIgnore
+    private Credentials credentials;
 }
