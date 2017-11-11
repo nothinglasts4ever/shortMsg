@@ -1,5 +1,6 @@
 package com.smartbics.msgmailbox.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data(staticConstructor = "of")
 @Accessors(chain = true)
 @ToString(exclude = "id")
@@ -19,9 +21,9 @@ public class Message implements Serializable {
     @GeneratedValue
     private long id;
     @ManyToOne
-    private User from;
+    private Person from;
     @ManyToOne
-    private User to;
+    private Person to;
     private LocalDateTime timeStamp;
     private String message;
     private boolean read;

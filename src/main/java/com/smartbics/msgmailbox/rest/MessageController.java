@@ -1,9 +1,9 @@
 package com.smartbics.msgmailbox.rest;
 
 import com.smartbics.msgmailbox.domain.Message;
-import com.smartbics.msgmailbox.domain.User;
+import com.smartbics.msgmailbox.domain.Person;
 import com.smartbics.msgmailbox.repo.MessageRepository;
-import com.smartbics.msgmailbox.repo.UserRepository;
+import com.smartbics.msgmailbox.repo.PersonRepository;
 import com.smartbics.msgmailbox.rest.api.SendMessageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,23 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@CrossOrigin
 public class MessageController {
 
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
     @Autowired
-    UserRepository userRepository;
+    private PersonRepository personRepository;
 
     @GetMapping("/messages/inbox")
     public Iterable<Message> getInboxMessages(@RequestParam long id) {
-        User user = userRepository.findOne(id);
+        Person user = personRepository.findOne(id);
         return messageRepository.findByToOrderByTimeStampDesc(user);
     }
 
     @GetMapping("/messages/outbox")
     public Iterable<Message> getOutboxMessages(@RequestParam long id) {
-        User user = userRepository.findOne(id);
+        Person user = personRepository.findOne(id);
         return messageRepository.findByFromOrderByTimeStampDesc(user);
     }
 
@@ -39,8 +38,8 @@ public class MessageController {
             // throw exception
         }
 
-        User from = userRepository.findOne(senderId);
-        User to = userRepository.findOne(recipientId);
+        Person from = personRepository.findOne(senderId);
+        Person to = personRepository.findOne(recipientId);
         if (from == null || to == null) {
             // throw exception
         }

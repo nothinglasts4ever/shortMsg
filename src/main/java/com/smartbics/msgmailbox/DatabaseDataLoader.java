@@ -1,12 +1,13 @@
 package com.smartbics.msgmailbox;
 
 import com.smartbics.msgmailbox.domain.Message;
-import com.smartbics.msgmailbox.domain.User;
+import com.smartbics.msgmailbox.domain.Person;
 import com.smartbics.msgmailbox.repo.MessageRepository;
-import com.smartbics.msgmailbox.repo.UserRepository;
+import com.smartbics.msgmailbox.repo.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,17 +15,22 @@ import java.time.LocalDateTime;
 @Component
 public class DatabaseDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Autowired
-    MessageRepository messageRepository;
-    @Autowired
-    UserRepository userRepository;
+    private PersonRepository personRepository;
+    private MessageRepository messageRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private User user1;
-    private User user2;
-    private User user3;
-    private User user4;
-    private User user5;
-    private User user6;
+    private Person user1;
+    private Person user2;
+    private Person user3;
+    private Person user4;
+    private Person user5;
+    private Person user6;
+
+    public DatabaseDataLoader(PersonRepository personRepository, MessageRepository messageRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.personRepository = personRepository;
+        this.messageRepository = messageRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -33,18 +39,18 @@ public class DatabaseDataLoader implements ApplicationListener<ContextRefreshedE
     }
 
     void createUsers() {
-        user1 = User.of().setFirstName("Homer").setLastName("Simpson").setMobileId(123).setPassword("secret1");
-        user2 = User.of().setFirstName("Marge").setLastName("Simpson").setMobileId(465).setPassword("secret1");
-        user3 = User.of().setFirstName("Bart").setLastName("Simpson").setMobileId(789).setPassword("secret1");
-        user4 = User.of().setFirstName("Lisa").setLastName("Simpson").setMobileId(741).setPassword("secret1");
-        user5 = User.of().setFirstName("Nelson").setLastName("Muntz").setMobileId(852).setPassword("haha");
-        user6 = User.of().setFirstName("Ned").setLastName("Flanders").setMobileId(963).setPassword("okilydokily");
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
-        userRepository.save(user4);
-        userRepository.save(user5);
-        userRepository.save(user6);
+        user1 = Person.of().setFirstName("Homer").setLastName("Simpson").setMobileId("123").setPassword(bCryptPasswordEncoder.encode("secret1"));
+        user2 = Person.of().setFirstName("Marge").setLastName("Simpson").setMobileId("465").setPassword(bCryptPasswordEncoder.encode("secret1"));
+        user3 = Person.of().setFirstName("Bart").setLastName("Simpson").setMobileId("789").setPassword(bCryptPasswordEncoder.encode("secret1"));
+        user4 = Person.of().setFirstName("Lisa").setLastName("Simpson").setMobileId("741").setPassword(bCryptPasswordEncoder.encode("secret1"));
+        user5 = Person.of().setFirstName("Nelson").setLastName("Muntz").setMobileId("852").setPassword(bCryptPasswordEncoder.encode("haha"));
+        user6 = Person.of().setFirstName("Ned").setLastName("Flanders").setMobileId("963").setPassword(bCryptPasswordEncoder.encode("okilydokily"));
+        personRepository.save(user1);
+        personRepository.save(user2);
+        personRepository.save(user3);
+        personRepository.save(user4);
+        personRepository.save(user5);
+        personRepository.save(user6);
     }
 
     void createMessages() {
