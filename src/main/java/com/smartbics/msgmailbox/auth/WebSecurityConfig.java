@@ -14,7 +14,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String SECRET = "ShortMessageMailboxSecretKey";
     public static final String TOKEN_PREFIX = "Bearer ";
@@ -23,7 +23,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurity(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurityConfig(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -31,7 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/index.html", "/login.html", "/", "/login").permitAll()
+                .antMatchers("/index.html", "/login.html", "/", "/login", "/home.html", "/home").permitAll()
                 .antMatchers("/favicon.ico", "/*bundle.js").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .anyRequest().authenticated()

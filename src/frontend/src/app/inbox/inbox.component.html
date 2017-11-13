@@ -1,0 +1,19 @@
+<h2>Inbox Messages</h2>
+<table>
+  <thead>
+  <tr>
+    <th>From</th>
+    <th>When</th>
+    <th>Message</th>
+    <th>Read</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let message of messages">
+    <td>{{message.from.firstName}} {{message.from.lastName}}</td>
+    <td>{{message.timeStamp.dayOfMonth}}.{{message.timeStamp.monthValue}}.{{message.timeStamp.year}} {{message.timeStamp.hour}}:{{message.timeStamp.minute}}</td>
+    <td>{{message.message}}</td>
+    <td>{{message.read ? 'yes' : 'no'}}</td>
+  </tr>
+  </tbody>
+</table>

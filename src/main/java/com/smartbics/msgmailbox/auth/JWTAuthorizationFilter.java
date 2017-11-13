@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.smartbics.msgmailbox.auth.WebSecurity.HEADER_STRING;
-import static com.smartbics.msgmailbox.auth.WebSecurity.SECRET;
-import static com.smartbics.msgmailbox.auth.WebSecurity.TOKEN_PREFIX;
+import static com.smartbics.msgmailbox.auth.WebSecurityConfig.HEADER_STRING;
+import static com.smartbics.msgmailbox.auth.WebSecurityConfig.SECRET;
+import static com.smartbics.msgmailbox.auth.WebSecurityConfig.TOKEN_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

@@ -1,0 +1,17 @@
+<h2>Outbox Messages</h2>
+<table>
+  <thead>
+  <tr>
+    <th>From</th>
+    <th>When</th>
+    <th>Message</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let message of messages">
+    <td>{{message.from.firstName}} {{message.from.lastName}}</td>
+    <td>{{message.timeStamp.dayOfMonth}}.{{message.timeStamp.monthValue}}.{{message.timeStamp.year}} {{message.timeStamp.hour}}:{{message.timeStamp.minute}}</td>
+    <td>{{message.message}}</td>
+  </tr>
+  </tbody>
+</table>
