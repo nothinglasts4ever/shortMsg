@@ -2,18 +2,14 @@ import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
-import {AuthenticationService} from "./auth-service.service";
+import {AuthenticationService} from "./auth.service";
 import {Person} from "./person";
 import {SendMessageRequest} from "./send-msg";
 
 @Injectable()
 export class RestService {
 
-  constructor(private http: Http, private authenticationService: AuthenticationService) {
-  }
-
-  getCurrentUser(): Observable<Person> {
-    return this.getRequest('http://localhost:8080/users/current');
+  constructor(private http: Http, private authService: AuthenticationService) {
   }
 
   getPersons(): Observable<Person[]> {
@@ -45,7 +41,7 @@ export class RestService {
   }
 
   private createOptions() {
-    let headers = new Headers({'Authorization': this.authenticationService.token});
+    let headers = new Headers({'Authorization': this.authService.token});
     return new RequestOptions({headers: headers});
   }
 

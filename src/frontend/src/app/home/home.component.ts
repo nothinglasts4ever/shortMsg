@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RestService} from "../rest.service";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-home',
@@ -11,11 +11,11 @@ export class HomeComponent implements OnInit {
   title = 'Short Message Mailbox';
   currentUser: string;
 
-  constructor(private restService: RestService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.restService.getCurrentUser()
+    this.userService.getUserDetails()
       .subscribe(person => {
         this.currentUser = person.firstName + ' ' + person.lastName;
       });

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from "../auth-service.service";
+import {AuthenticationService} from "../auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,16 +14,16 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.authenticationService.logout();
+    this.authService.logout();
   }
 
   login() {
     this.loading = true;
-    this.authenticationService.login(this.model.mobileId, this.model.password)
+    this.authService.login(this.model.mobileId, this.model.password)
       .subscribe(result => {
         if (result === true) {
           this.router.navigate(['/']);

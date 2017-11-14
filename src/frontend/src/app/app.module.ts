@@ -10,10 +10,11 @@ import {MessageComponent} from './message/message.component';
 import {OutboxComponent} from './outbox/outbox.component';
 import {LoginComponent} from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from "./jwt-guard.guard";
-import {AuthenticationService} from "./auth-service.service";
+import {AuthGuard} from "./jwt.guard";
+import {AuthenticationService} from "./auth.service";
 import {HomeComponent} from './home/home.component';
 import {RestService} from "app/rest.service";
+import {UserService} from "./user.service";
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
   providers: [
     AuthGuard,
     AuthenticationService,
-    RestService
+    RestService,
+    UserService
   ],
   bootstrap: [AppComponent],
   exports: [RouterModule]

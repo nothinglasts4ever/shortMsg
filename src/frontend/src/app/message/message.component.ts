@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Person} from "../person";
 import {RestService} from "app/rest.service";
 import {SendMessageRequest} from "../send-msg";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-message',
@@ -15,13 +16,17 @@ export class MessageComponent implements OnInit {
   msg: string;
   sent: string = undefined;
 
-  constructor(private restService: RestService) {
+  constructor(private restService: RestService, private userService: UserService) {
   }
 
   ngOnInit() {
     this.restService.getPersons()
       .subscribe(persons => {
         this.persons = persons;
+        this.userService.getUserDetails()
+          .subscribe(currentUser => {
+            this.persons = this.persons.filter(person => person.id != currentUser.id);
+          })
       });
   }
 
