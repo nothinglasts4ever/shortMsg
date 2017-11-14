@@ -1,7 +1,8 @@
 <h1>
   {{title}}
 </h1>
-<app-person></app-person>
+<h3>Logged in as: {{currentUser}}</h3>
+<app-message></app-message>
 <app-inbox></app-inbox>
 <app-outbox></app-outbox>
 <p><a [routerLink]="['/login']">Logout</a></p>

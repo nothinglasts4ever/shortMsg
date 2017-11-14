@@ -3,9 +3,13 @@ package com.smartbics.msgmailbox.rest;
 import com.smartbics.msgmailbox.domain.Credentials;
 import com.smartbics.msgmailbox.domain.Person;
 import com.smartbics.msgmailbox.repo.PersonRepository;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.CredentialException;
 import javax.validation.ValidationException;
 
 @RestController
@@ -22,6 +26,17 @@ public class PersonController {
     @GetMapping("/users")
     public Iterable<Person> getAllUsers() {
         return personRepository.findAll();
+    }
+
+    @GetMapping("/users/current")
+    public Person getCurrentUser() throws CredentialException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mobileId = null;
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            mobileId = authentication.getName();
+        }
+        if (mobileId == null) throw new CredentialException("Cannot find current user");
+        return personRepository.findByCredentials_MobileId(mobileId);
     }
 
     @PostMapping("/users/register")

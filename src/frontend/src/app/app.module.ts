@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {InboxComponent} from './inbox/inbox.component';
-import {PersonComponent} from './person/person.component';
+import {MessageComponent} from './message/message.component';
 import {OutboxComponent} from './outbox/outbox.component';
 import {LoginComponent} from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -25,13 +25,13 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     InboxComponent,
-    PersonComponent,
+    MessageComponent,
     OutboxComponent,
     LoginComponent,
     HomeComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
     HttpClientModule,

@@ -4,11 +4,16 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
 import {AuthenticationService} from "./auth-service.service";
 import {Person} from "./person";
+import {SendMessageRequest} from "./send-msg";
 
 @Injectable()
 export class RestService {
 
   constructor(private http: Http, private authenticationService: AuthenticationService) {
+  }
+
+  getCurrentUser(): Observable<Person> {
+    return this.getRequest('http://localhost:8080/users/current');
   }
 
   getPersons(): Observable<Person[]> {
@@ -23,13 +28,25 @@ export class RestService {
     return this.getRequest('http://localhost:8080/messages/outbox');
   }
 
-  private getRequest(url: string) {
-    let headers = new Headers({'Authorization': this.authenticationService.token});
-    let options = new RequestOptions({headers: headers});
+  sendMessage(message: SendMessageRequest): Observable<Object[]> {
+    return this.postRequest('http://localhost:8080/messages/send', message);
+  }
 
+  private getRequest(url: string) {
     return this.http
-      .get(url, options)
+      .get(url, this.createOptions())
       .map((response: Response) => response.json());
+  }
+
+  private postRequest(url: string, body: any) {
+    return this.http
+      .post(url, body, this.createOptions())
+      .map((response: Response) => response.json());
+  }
+
+  private createOptions() {
+    let headers = new Headers({'Authorization': this.authenticationService.token});
+    return new RequestOptions({headers: headers});
   }
 
 }
