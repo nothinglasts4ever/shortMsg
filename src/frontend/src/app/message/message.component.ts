@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, AfterViewInit, AfterContentInit} from '@angular/core';
 import {Person} from "../person";
 import {RestService} from "app/rest.service";
 import {SendMessageRequest} from "../send-msg";
@@ -9,7 +9,7 @@ import {UserService} from "../user.service";
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements AfterViewInit, AfterContentInit {
 
   persons: Person[] = [];
   recipientId: number;
@@ -19,14 +19,17 @@ export class MessageComponent implements OnInit {
   constructor(private restService: RestService, private userService: UserService) {
   }
 
-  ngOnInit() {
+  ngAfterContentInit() {
+    this.userService.setUserDetails();
+  }
+
+  ngAfterViewInit() {
     this.restService.getPersons()
       .subscribe(persons => {
-        this.persons = persons;
-        this.userService.getUserDetails()
-          .subscribe(currentUser => {
-            this.persons = this.persons.filter(person => person.id != currentUser.id);
-          })
+        this.persons = persons.filter(person =>
+          this.userService && this.userService.userDetails
+            ? person.id != this.userService.userDetails.id
+            : true);
       });
   }
 

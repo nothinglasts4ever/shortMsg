@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import {RestService} from "../rest.service";
 
 @Component({
@@ -6,14 +6,14 @@ import {RestService} from "../rest.service";
   templateUrl: './outbox.component.html',
   styleUrls: ['./outbox.component.css']
 })
-export class OutboxComponent implements OnInit {
+export class OutboxComponent implements AfterViewInit {
 
   messages = [];
 
   constructor(private restService: RestService) {
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.restService.getOutbox()
       .subscribe(messages => {
         this.messages = messages;

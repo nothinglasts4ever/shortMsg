@@ -1,7 +1,7 @@
 <h1>
   {{title}}
 </h1>
-<h3>Logged in as: {{currentUser}}</h3>
+<h3>Logged in as: {{userService.userDetails ? userService.userDetails.firstName : ''}} {{userService.userDetails ? userService.userDetails.lastName : ''}}</h3>
 <app-message></app-message>
 <app-inbox></app-inbox>
 <app-outbox></app-outbox>

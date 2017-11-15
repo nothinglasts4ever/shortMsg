@@ -12,6 +12,10 @@ export class RestService {
   constructor(private http: Http, private authService: AuthenticationService) {
   }
 
+  getCurrentUser(): Observable<Person> {
+    return this.getRequest('http://localhost:8080/users/current');
+  }
+
   getPersons(): Observable<Person[]> {
     return this.getRequest('http://localhost:8080/users');
   }

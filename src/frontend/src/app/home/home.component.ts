@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {UserService} from "../user.service";
 
 @Component({
@@ -6,19 +6,16 @@ import {UserService} from "../user.service";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnDestroy {
 
   title = 'Short Message Mailbox';
   currentUser: string;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
   }
 
-  ngOnInit() {
-    this.userService.getUserDetails()
-      .subscribe(person => {
-        this.currentUser = person.firstName + ' ' + person.lastName;
-      });
+  ngOnDestroy() {
+    this.userService.cleanUserDetails();
   }
 
 }

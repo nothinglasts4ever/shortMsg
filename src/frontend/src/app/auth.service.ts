@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Http,  Headers, RequestOptions, Response} from '@angular/http';
+import {Http,  Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
-import {Person} from "./person";
 
 @Injectable()
 export class AuthenticationService {
@@ -25,21 +24,6 @@ export class AuthenticationService {
           return false;
         }
       });
-  }
-
-  getUserDetails(): Observable<Person> {
-    return this.getRequest('http://localhost:8080/users/current');
-  }
-
-  private getRequest(url: string) {
-    return this.http
-      .get(url, this.createOptions())
-      .map((response: Response) => response.json());
-  }
-
-  private createOptions() {
-    let headers = new Headers({'Authorization': this.token});
-    return new RequestOptions({headers: headers});
   }
 
   logout(): void {

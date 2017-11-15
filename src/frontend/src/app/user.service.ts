@@ -1,15 +1,27 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map'
-import {AuthenticationService} from "./auth.service";
+import {RestService} from "./rest.service";
+import {Person} from "./person";
 
 @Injectable()
 export class UserService {
 
-  constructor(private authService: AuthenticationService) {
+  public userDetails: Person;
+
+  constructor(private restService: RestService) {
   }
 
-  getUserDetails() {
-    return this.authService.getUserDetails();
+  setUserDetails() {
+    if (!this.userDetails) {
+      return this.restService.getCurrentUser()
+        .subscribe(person => {
+          this.userDetails = person;
+        });
+    }
+  }
+
+  cleanUserDetails() {
+    this.userDetails = undefined;
   }
 
 }
