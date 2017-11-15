@@ -32,6 +32,10 @@ export class RestService {
     return this.postRequest('http://localhost:8080/messages/send', message);
   }
 
+  markAsRead(messageId): Observable<Object> {
+    return this.postRequest('http://localhost:8080/messages/mark-as-read?messageId=' + messageId, null);
+  }
+
   private getRequest(url: string) {
     return this.http
       .get(url, this.createOptions())

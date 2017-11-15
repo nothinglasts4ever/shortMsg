@@ -14,6 +14,17 @@ export class InboxComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.getInboxMessages();
+  }
+
+  markAsRead(messageId: number, read: boolean) {
+    if (read == false) {
+      this.restService.markAsRead(messageId)
+        .subscribe(this.getInboxMessages);
+    }
+  }
+
+  getInboxMessages = () => {
     this.restService.getInbox()
       .subscribe(messages => {
         this.messages = messages;

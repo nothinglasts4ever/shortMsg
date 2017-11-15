@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let message of messages">
+  <tr *ngFor="let message of messages;" (click)="markAsRead(message.id, message.read)">
     <td>{{message.from.firstName}} {{message.from.lastName}}</td>
     <td>{{message.timeStamp.dayOfMonth}}.{{message.timeStamp.monthValue}}.{{message.timeStamp.year}} {{message.timeStamp.hour}}:{{message.timeStamp.minute}}</td>
     <td>{{message.message}}</td>
