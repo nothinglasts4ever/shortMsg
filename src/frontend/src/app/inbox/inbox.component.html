@@ -1,5 +1,5 @@
 <div class="container main-content">
-  <h2>Inbox Messages</h2>
+  <h2>Inbox Messages <span *ngIf="unread">({{unread}})</span></h2>
 
   <div class="messages">
     <div class="one-message message-title">
@@ -17,10 +17,10 @@
         <span class="no"></span>
       </div>
       <div class="is-read" *ngIf="!message.read">
-        <span class="no">NO</span>
+        <span class="no">No</span>
       </div>
     </div>
-    <button class="btn btn-lg btn-dark btn-refresh" (click)="getInboxMessages()">REFRESH MESSAGES</button>
+    <button class="btn btn-lg btn-dark btn-refresh" (click)="getInboxMessages()">Refresh Messages</button>
   </div>
 
 </div>

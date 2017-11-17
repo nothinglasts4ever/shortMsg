@@ -16,7 +16,14 @@
     <div>
       <span>notification</span>{{sent}}
     </div>
-    <button type="button" class="close" (click)="close()"></button>
+    <button type="button" class="close" (click)="closeWell()"></button>
+  </div>
+
+  <div class="alert alert-wrong" *ngIf="error">
+    <div>
+      <span>notification</span>{{error}}
+    </div>
+    <button type="button" class="close" (click)="closeWrong()"></button>
   </div>
 
 </div>

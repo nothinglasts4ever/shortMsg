@@ -8,6 +8,7 @@ import {RestService} from "../rest.service";
 export class InboxComponent implements AfterViewInit {
 
   messages = [];
+  unread = undefined;
 
   constructor(private restService: RestService) {
   }
@@ -27,6 +28,7 @@ export class InboxComponent implements AfterViewInit {
     this.restService.getInbox()
       .subscribe(messages => {
         this.messages = messages;
+        this.unread = this.messages.filter(message => message.read == false).length;
       });
   }
 

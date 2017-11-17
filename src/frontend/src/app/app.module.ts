@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     HomeComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, {enableTracing: true}),
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
     HttpClientModule,

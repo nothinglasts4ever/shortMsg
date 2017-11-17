@@ -14,6 +14,7 @@ export class MessageComponent implements AfterContentInit, AfterViewInit {
   recipientId: number;
   msg: string;
   sent: string = undefined;
+  error: string = undefined;
 
   constructor(private restService: RestService, private userService: UserService) {
   }
@@ -33,17 +34,27 @@ export class MessageComponent implements AfterContentInit, AfterViewInit {
   }
 
   onSendMessage() {
-    this.restService.sendMessage(new SendMessageRequest(this.recipientId, this.msg))
-      .subscribe(message => {
-        if (message) {
-          this.sent = "Message sent";
-          this.msg = undefined;
-        }
-      });
+    if (!this.recipientId || !this.msg) {
+      this.closeWell();
+      this.error = 'Person or message cannot be empty';
+    } else {
+      this.restService.sendMessage(new SendMessageRequest(this.recipientId, this.msg))
+        .subscribe(message => {
+          if (message) {
+            this.closeWrong();
+            this.sent = "Message sent";
+            this.msg = undefined;
+          }
+        });
+    }
   }
 
-  close() {
+  closeWell() {
     this.sent = undefined;
+  }
+
+  closeWrong() {
+    this.error = undefined;
   }
 
 }
