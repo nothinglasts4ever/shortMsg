@@ -3,8 +3,7 @@ import {RestService} from "../rest.service";
 
 @Component({
   selector: 'app-inbox',
-  templateUrl: './inbox.component.html',
-  styleUrls: ['./inbox.component.css']
+  templateUrl: './inbox.component.html'
 })
 export class InboxComponent implements AfterViewInit {
 

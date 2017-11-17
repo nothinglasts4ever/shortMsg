@@ -6,10 +6,9 @@ import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  templateUrl: './message.component.html'
 })
-export class MessageComponent implements AfterViewInit, AfterContentInit {
+export class MessageComponent implements AfterContentInit, AfterViewInit {
 
   persons: Person[] = [];
   recipientId: number;
@@ -38,8 +37,13 @@ export class MessageComponent implements AfterViewInit, AfterContentInit {
       .subscribe(message => {
         if (message) {
           this.sent = "Message sent";
+          this.msg = undefined;
         }
       });
+  }
+
+  close() {
+    this.sent = undefined;
   }
 
 }

@@ -1,19 +1,26 @@
-<h2>Inbox Messages</h2>
-<table>
-  <thead>
-  <tr>
-    <th>From</th>
-    <th>When</th>
-    <th>Message</th>
-    <th>Read</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let message of messages;" (click)="markAsRead(message.id, message.read)">
-    <td>{{message.from.firstName}} {{message.from.lastName}}</td>
-    <td>{{message.timeStamp.dayOfMonth}}.{{message.timeStamp.monthValue}}.{{message.timeStamp.year}} {{message.timeStamp.hour}}:{{message.timeStamp.minute}}</td>
-    <td>{{message.message}}</td>
-    <td>{{message.read ? 'yes' : 'no'}}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="container main-content">
+  <h2>Inbox Messages</h2>
+
+  <div class="messages">
+    <div class="one-message message-title">
+      <div class="from">From</div>
+      <div>Message</div>
+      <div class="message-date">When</div>
+      <div class="is-read">Read</div>
+    </div>
+
+    <div class="one-message" *ngFor="let message of messages;" (click)="markAsRead(message.id, message.read)">
+      <div class="from">{{message.from.firstName}} {{message.from.lastName}}</div>
+      <div>{{message.message}}</div>
+      <div class="message-date"><span>{{message.timeStamp.dayOfMonth}}.{{message.timeStamp.monthValue}}.{{message.timeStamp.year}}</span>{{message.timeStamp.hour}}:{{message.timeStamp.minute}}</div>
+      <div class="is-read is-read-yes" *ngIf="message.read">
+        <span class="no"></span>
+      </div>
+      <div class="is-read" *ngIf="!message.read">
+        <span class="no">NO</span>
+      </div>
+    </div>
+    <button class="btn btn-lg btn-dark btn-refresh" (click)="getInboxMessages()">REFRESH MESSAGES</button>
+  </div>
+
+</div>

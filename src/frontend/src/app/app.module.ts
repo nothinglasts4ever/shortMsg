@@ -17,8 +17,12 @@ import {UserService} from "./user.service";
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: ''}
+  {path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
+      {path: 'message', component: MessageComponent},
+      {path: 'inbox', component: InboxComponent},
+      {path: 'outbox', component: OutboxComponent}]
+  },
+  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({
@@ -31,7 +35,7 @@ const appRoutes: Routes = [
     HomeComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, {enableTracing: true}),
     BrowserModule,
     FormsModule,
     HttpClientModule,

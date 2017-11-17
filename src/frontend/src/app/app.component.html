@@ -1,1 +1,17 @@
+<header>
+  <div class="container main-container">
+
+    <h1>{{title}}</h1>
+
+    <div class="login" *ngIf="userService.userDetails">
+      <div class="user-info">
+        <span class="name">{{userService.userDetails ? userService.userDetails.firstName : ''}} {{userService.userDetails ? userService.userDetails.lastName : ''}}</span>
+        <span class="sign-out" [routerLink]="['/login']">Sign Out</span>
+      </div>
+      <div class="user"></div>
+    </div>
+
+  </div>
+</header>
+
 <router-outlet></router-outlet>

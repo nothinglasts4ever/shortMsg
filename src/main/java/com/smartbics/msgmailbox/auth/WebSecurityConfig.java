@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/index.html", "/login.html", "/", "/login", "/home.html", "/home").permitAll()
-                .antMatchers("/favicon.ico", "/*bundle.js").permitAll()
+                .antMatchers("/favicon.ico", "/*bundle.js", "/*.otf", "/*.ttf", "/*.woff", "/*.eot", "/*.svg").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
