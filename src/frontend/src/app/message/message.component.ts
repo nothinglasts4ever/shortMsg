@@ -36,13 +36,13 @@ export class MessageComponent implements AfterContentInit, AfterViewInit {
   onSendMessage() {
     if (!this.recipientId || !this.msg) {
       this.closeWell();
-      this.error = 'Person or message cannot be empty';
+      this.error = 'Palun vali saaja ja trüki sõnum';
     } else {
       this.restService.sendMessage(new SendMessageRequest(this.recipientId, this.msg))
         .subscribe(message => {
           if (message) {
             this.closeWrong();
-            this.sent = "Message sent";
+            this.sent = "Sõnum on saadetud";
             this.msg = undefined;
           }
         });

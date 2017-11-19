@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         if (result === true) {
           this.router.navigate(['/message']);
         } else {
-          this.error = 'Username or password is incorrect';
+          this.error = 'Vale kasutajanimi või parool';
           this.loading = false;
         }
       });

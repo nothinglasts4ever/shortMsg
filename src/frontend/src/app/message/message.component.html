@@ -1,5 +1,5 @@
 <div class="container main-content">
-  <h2>New Message</h2>
+  <h2>Uus Sõnum</h2>
 
   <form class="form" name="form" (ngSubmit)="onSendMessage()" #f="ngForm" novalidate>
     <select class="form-control form-control-lg" name="recipient" [(ngModel)]="recipientId">
@@ -7,7 +7,7 @@
         {{person.firstName}} {{person.lastName}}
       </option>
     </select>
-    <input class="form-control form-control-lg" type="text" placeholder="Message Text"
+    <input class="form-control form-control-lg" type="text" placeholder="Sõnumi Tekst"
            name="msg" [(ngModel)]="msg">
     <button class="btn btn-lg btn-primary">Send</button>
   </form>

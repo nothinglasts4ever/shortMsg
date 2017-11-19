@@ -7,7 +7,7 @@ import {UserService} from "./user.service";
 })
 export class AppComponent {
 
-  title = 'Short Message Mailbox';
+  title = 'Lühisõnumite Postkast';
 
   constructor(public userService: UserService) {
   }
