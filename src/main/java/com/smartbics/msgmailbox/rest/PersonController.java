@@ -3,11 +3,12 @@ package com.smartbics.msgmailbox.rest;
 import com.smartbics.msgmailbox.domain.Credentials;
 import com.smartbics.msgmailbox.domain.Person;
 import com.smartbics.msgmailbox.repo.PersonRepository;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.smartbics.msgmailbox.service.CredentialsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.security.auth.login.CredentialException;
 import javax.validation.ValidationException;
@@ -17,10 +18,12 @@ public class PersonController {
 
     private PersonRepository personRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private CredentialsService credentialsService;
 
-    public PersonController(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public PersonController(PersonRepository personRepository, BCryptPasswordEncoder bCryptPasswordEncoder, CredentialsService credentialsService) {
         this.personRepository = personRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.credentialsService = credentialsService;
     }
 
     @GetMapping("/users")
@@ -30,13 +33,7 @@ public class PersonController {
 
     @GetMapping("/users/current")
     public Person getCurrentUser() throws CredentialException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String mobileId = null;
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            mobileId = authentication.getName();
-        }
-        if (mobileId == null) throw new CredentialException("Cannot find current user");
-        return personRepository.findByCredentials_MobileId(mobileId);
+        return credentialsService.getCurrentUser();
     }
 
     @PostMapping("/users/register")

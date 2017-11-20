@@ -22,7 +22,7 @@ const appRoutes: Routes = [
       {path: 'inbox', component: InboxComponent},
       {path: 'outbox', component: OutboxComponent}]
   },
-  {path: '**', redirectTo: 'login'}
+  {path: '**', redirectTo: '/login'}
 ];
 
 @NgModule({

@@ -39,9 +39,9 @@ public class DatabaseDataLoader implements ApplicationListener<ContextRefreshedE
     }
 
     void createUsers() {
-        Credentials credentials1 = Credentials.of().setMobileId("123").setPassword(bCryptPasswordEncoder.encode("secret1"));
-        Credentials credentials2 = Credentials.of().setMobileId("456").setPassword(bCryptPasswordEncoder.encode("secret1"));
-        Credentials credentials3 = Credentials.of().setMobileId("789").setPassword(bCryptPasswordEncoder.encode("secret1"));
+        Credentials credentials1 = Credentials.of().setMobileId("Duff123").setPassword(bCryptPasswordEncoder.encode("secret1"));
+        Credentials credentials2 = Credentials.of().setMobileId("Margery456").setPassword(bCryptPasswordEncoder.encode("secret2"));
+        Credentials credentials3 = Credentials.of().setMobileId("ElBarto789").setPassword(bCryptPasswordEncoder.encode("secret3"));
         Credentials credentials4 = Credentials.of().setMobileId("741").setPassword(bCryptPasswordEncoder.encode("secret1"));
         Credentials credentials5 = Credentials.of().setMobileId("852").setPassword(bCryptPasswordEncoder.encode("haha"));
         Credentials credentials6 = Credentials.of().setMobileId("963").setPassword(bCryptPasswordEncoder.encode("okilydokily"));

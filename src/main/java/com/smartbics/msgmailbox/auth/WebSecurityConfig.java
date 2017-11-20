@@ -1,7 +1,6 @@
 package com.smartbics.msgmailbox.auth;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +19,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
 
+    private static final String[] pages = {"/index.html", "/", "/login", "/message", "/inbox", "/outbox"};
+    private static final String[] resources = {"/favicon.ico", "/*bundle.js", "/*.otf", "/*.ttf", "/*.woff", "/*.eot", "/*.svg"};
+
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -31,9 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/index.html", "/login.html", "/", "/login", "/home.html", "/home").permitAll()
-                .antMatchers("/favicon.ico", "/*bundle.js", "/*.otf", "/*.ttf", "/*.woff", "/*.eot", "/*.svg").permitAll()
-                .antMatchers(HttpMethod.POST, "/users/register").permitAll()
+                .antMatchers(pages).permitAll()
+                .antMatchers(resources).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
