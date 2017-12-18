@@ -1,12 +1,12 @@
 <div class="container main-content">
-  <h2>Sissetulevad Sõnumid <span *ngIf="unread">({{unread}})</span></h2>
+  <h2>Inbox Messages <span *ngIf="unread">({{unread}})</span></h2>
 
   <div class="messages">
     <div class="one-message message-title">
-      <div class="from">Kellelt</div>
-      <div>Sõnum</div>
-      <div class="message-date">Millal</div>
-      <div class="is-read">Loe</div>
+      <div class="from">From</div>
+      <div>Message</div>
+      <div class="message-date">When</div>
+      <div class="is-read">Read</div>
     </div>
 
     <div class="one-message" *ngFor="let message of messages;" (click)="markAsRead(message.id, message.read)">
@@ -17,10 +17,10 @@
         <span class="no"></span>
       </div>
       <div class="is-read" *ngIf="!message.read">
-        <!--<span class="no">No</span>-->
+        <span class="no">No</span>
       </div>
     </div>
-    <button class="btn btn-lg btn-dark btn-refresh" (click)="getInboxMessages()">Värskenda Sõnumeid</button>
+    <button class="btn btn-lg btn-dark btn-refresh" (click)="getInboxMessages()">Refresh Messages</button>
   </div>
 
 </div>

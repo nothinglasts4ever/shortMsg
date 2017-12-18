@@ -6,7 +6,7 @@
     <div class="login" *ngIf="authService.token">
       <div class="user-info">
         <span class="name">{{userService.userDetails ? userService.userDetails.firstName : ''}} {{userService.userDetails ? userService.userDetails.lastName : ''}}</span>
-        <span class="sign-out" [routerLink]="['/login']">Logi Välja</span>
+        <span class="sign-out" [routerLink]="['/login']">Sign Out</span>
       </div>
       <div class="user"></div>
     </div>

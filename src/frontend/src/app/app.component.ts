@@ -8,7 +8,7 @@ import {AuthenticationService} from "./auth.service";
 })
 export class AppComponent {
 
-  title = 'Lühisõnumite Postkast';
+  title = 'Short Message Mailbox';
 
   constructor(public userService: UserService, public authService: AuthenticationService) {
   }

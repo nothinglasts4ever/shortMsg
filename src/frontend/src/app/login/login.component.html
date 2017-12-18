@@ -1,12 +1,12 @@
 <div class="container main-content">
 
   <form class="form" name="form" (ngSubmit)="login()" #f="ngForm" novalidate>
-    <h2>Logi Sisse</h2>
-    <input class="form-control form-control-lg" type="text" placeholder="Mobile Id"
+    <h2>Sign In</h2>
+    <input class="form-control form-control-lg" type="text" placeholder="Your Mobile Id"
            name="mobileId" [(ngModel)]="model.mobileId" #mobileId="ngModel" required/>
-    <input class="form-control form-control-lg" type="password" placeholder="Parool"
+    <input class="form-control form-control-lg" type="password" placeholder="Your Password"
            name="password" [(ngModel)]="model.password" #password="ngModel" required/>
-    <button class="btn btn-lg btn-primary">Logi Sisse</button>
+    <button class="btn btn-lg btn-primary">Sign In</button>
   </form>
 
   <div class="alert alert-wrong" *ngIf="error">
