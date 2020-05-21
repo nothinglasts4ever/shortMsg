@@ -1,7 +1,8 @@
 package com.smartbics.msgmailbox.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -24,7 +25,7 @@ public class Message implements Serializable {
     private Person from;
     @ManyToOne
     private Person to;
-    private LocalDateTime timeStamp;
+    private OffsetDateTime timeStamp;
     private String message;
     private boolean read;
 }

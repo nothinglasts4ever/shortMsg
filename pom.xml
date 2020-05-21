@@ -22,9 +22,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <lombok.version>1.16.18</lombok.version>
+        <lombok.version>1.18.12</lombok.version>
         <spring.io.jsonwebtoken>0.9.0</spring.io.jsonwebtoken>
         <yarn-args>${yarn.args}</yarn-args>
+        <jaxb.version>2.3.2</jaxb.version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,16 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${spring.io.jsonwebtoken}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
     </dependencies>
 

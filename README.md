@@ -1,3 +1,12 @@
+# Short Message App
+This is test task to create application to send short messages.
+The requirements were to make it quite simple, so there is no DTO objects, strict validations, any containers or migration scripts
+
+## Stack
+* Java 8 and Lombok
+* Spring Boot, Spring Data and Hibernate
+* Spring Security and JWT auth
+* Angular 4 and TypeScript
 ## Requirements
 
 Maven >= 3.3.1
